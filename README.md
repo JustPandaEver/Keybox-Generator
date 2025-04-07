@@ -16,7 +16,7 @@ python Keybox-Generator.py --file keybox.xml --days 365 --out keybox.new.xml
 
 ## ORIGINAL CODE IN
 ```
-http://github.com/vD171/Keybox-Generator.git
+https://github.com/vD171/Keybox-Generator.git
 ```
   
 ## Arguments
