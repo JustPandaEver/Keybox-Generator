@@ -60,8 +60,11 @@ def sign_certificate(ca_cert_pem, ca_private_key_pem, csr_pem, serial_ca_int, da
     new_cert_pem = new_cert.public_bytes(serialization.Encoding.PEM)
     return new_cert_pem.decode('utf-8')
 
+def banner():
+    return f"KeyBox Generator v{INFO['version']}\nby {INFO['author']}\nRecoded by: {INFO['recoded']}\nGitHub: {INFO['github']}\n"
+
 def main():
-    vd_parser = argparse.ArgumentParser(epilog=f"KeyBox Generator v{INFO['version']}\nby {INFO['author']}\nRecoded by: {INFO['recoded']}\nGitHub: {INFO['github']}\n ", formatter_class=argparse.RawDescriptionHelpFormatter)
+    vd_parser = argparse.ArgumentParser(epilog=banner(), formatter_class=argparse.RawDescriptionHelpFormatter)
     vd_parser.add_argument("--file", default="keybox.xml", help="Keybox file path")
     vd_parser.add_argument("--days", default="365", help="How many days for expiring the new certificate")
     vd_parser.add_argument("--title", default="TEE", help="Title for the new certificate. Default is TEE for a valid title")
@@ -108,7 +111,7 @@ def main():
 
     with open(vd_args.out, "w") as vd_file:
         vd_file.write(vd_content.replace(vd_number_match.group(1), vd_number_new).replace(vd_key_match.group(1), new_private_pem.replace('-----BEGIN PRIVATE KEY-----', '-----BEGIN EC PRIVATE KEY-----').replace('-----END PRIVATE KEY-----', '-----END EC PRIVATE KEY-----')).replace(vd_cert_match.group(1), vd_cert_new))
-    print(f"New keybox: {vd_args.out}.")
+    print(f"{banner()}New keybox: {vd_args.out}.")
 
 if __name__ == "__main__":
     main()
