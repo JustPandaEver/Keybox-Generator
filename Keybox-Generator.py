@@ -89,7 +89,7 @@ def main():
     with open(vd_args.file, encoding="utf-8") as vd_file:
         vd_content = vd_file.read()
 
-    vd_content = re.sub(r"[\r\n]*\s*<Key algorithm=\"rsa\">.*?</Key>(\s*[\r\n]*)", r"\1", vd_content, flags=re.DOTALL)
+    vd_content = re.sub(r"\s*<Key algorithm=\"rsa\">.*?</Key>(\s*)", r"\1", vd_content, flags=re.DOTALL)
     if "<Key algorithm=\"ecdsa\">" not in vd_content:
         exit("Error: ECDSA Key not found!")
 
